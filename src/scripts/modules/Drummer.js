@@ -23,7 +23,7 @@ export default class Drummer {
 
   resize($drummer) {
     const update = () => {
-      this.width = window.innerWidth - 200
+      this.width = window.innerWidth
       this.height = window.innerHeight
       $drummer.width = this.width
       $drummer.height = this.height
@@ -118,12 +118,18 @@ export default class Drummer {
 
     if (this.isPlaying) this.currentPosition += .005
     if (this.currentPosition >= 1) this.currentPosition = 0
+
+    for (const sound of this.sounds) {
+      if (Math.round(sound.x * 100) == Math.round(this.currentPosition * 100)) {
+        console.log(sound.name)
+      }
+    }
   }
 
   inst(ctx) {
     for (const sound of this.sounds) {
       ctx.fillStyle = this.colors.kick
-      ctx.fillRect(sound.x * this.width - 200, sound.y * this.height - 25, sound.length * 100, 50)
+      ctx.fillRect(sound.x * this.width, sound.y * this.height - 25, sound.length * 100, 50)
     }
   }
 }
