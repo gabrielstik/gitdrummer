@@ -10,10 +10,12 @@ export default class Drummer {
 
     this.colors = {
       background: '#fffdf3',
-      bars: 'grey'
+      bars: 'grey',
+      kick: 'blue',
     }
+    this.sounds = []
     
-    this.events()
+    this.events($drummer)
     this.render(ctx)
   }
 
@@ -26,19 +28,36 @@ export default class Drummer {
     }
     update()
     
-    window.addEventListener('resize', () => {
-      update()
-    })
+    window.addEventListener('resize', () => { update() })
   }
 
-  events() {
-    window.addEventListener('mousedown', (e) => {
+  events($drummer) {
+    $drummer.addEventListener('mousedown', (e) => {
+      if (this.selectedSound) {
+        const sound = {
+          name: this.selectedSound,
+          x: event.clientX / this.width,
+          y: event.clientY / this.height,
+          length: 1
+        }
+        this.sounds.push(sound)
+      }
+    })
+
+    $drummer.addEventListener('mousemove', (e) => {
       
     })
 
-    window.addEventListener('mousemove', (e) => {
-      
-    })
+    const $soundLabels = document.querySelectorAll('.inventory--sound-label')
+    for (const $soundLabel of $soundLabels) {
+      $soundLabel.addEventListener('mousedown', () => {
+        for (const $label of $soundLabels) {
+          $label.classList.remove('selected')
+        }
+        $soundLabel.classList.add('selected')
+        this.selectedSound = $soundLabel.dataset.sound
+      })
+    }
   }
 
   render(ctx) {
@@ -47,6 +66,7 @@ export default class Drummer {
 
       this.clear(ctx)
       this.bars(ctx)
+      this.inst(ctx)
     }
     loop()
   }
@@ -76,5 +96,12 @@ export default class Drummer {
     ctx.lineTo(this.width / 4 * 3, this.height)
     ctx.stroke()
     ctx.closePath()
+  }
+
+  inst(ctx) {
+    for (const sound of this.sounds) {
+      ctx.fillStyle = this.colors.kick
+      ctx.fillRect(sound.x * this.width - 200, sound.y * this.height - 25, sound.length * 100, 50)
+    }
   }
 }
