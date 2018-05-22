@@ -13,10 +13,19 @@ export default class Drummer {
       bars: 'grey',
       current: 'red',
       kick: 'blue',
+      snare: 'green',
+      hihat: 'yellow',
     }
     this.sounds = []
     this.currentPosition = 0
+
+    this.medias = {
+      kick: 'assets/lib/808/kicks/808-Kicks03.wav',
+      snare: 'assets/lib/808/snares/808-Clap03.wav',
+      hihat: 'assets/lib/808/hihats/808-HiHats03.wav'
+    }
     
+    this.mediaPreload()
     this.events($drummer)
     this.render(ctx)
   }
@@ -33,6 +42,14 @@ export default class Drummer {
     window.addEventListener('resize', () => { update() })
   }
 
+  mediaPreload() {
+    for (const media in this.medias) {
+      const audio = new Audio()
+      audio.src = media
+    }
+
+  }
+
   events($drummer) {
     $drummer.addEventListener('mousedown', (e) => {
       if (this.selectedSound) {
@@ -40,7 +57,8 @@ export default class Drummer {
           name: this.selectedSound,
           x: event.clientX / this.width,
           y: event.clientY / this.height,
-          length: 1
+          length: 1,
+          isPlayed: false
         }
         this.sounds.push(sound)
       }
@@ -66,6 +84,11 @@ export default class Drummer {
     $playPause.addEventListener('mousedown', () => {
       this.isPlaying == false ? this.isPlaying = true : this.isPlaying = false
     })
+
+    const $export = document.querySelector('.inventory--export')
+    $export.addEventListener('mousedown', () => (
+      this.export()
+    ))
   }
 
   render(ctx) {
@@ -107,7 +130,7 @@ export default class Drummer {
     ctx.closePath()
   }
   
-  current(ctx) {
+  current(ctx, audio) {
     ctx.strokeStyle = this.colors.current
 
     ctx.beginPath()
@@ -116,20 +139,55 @@ export default class Drummer {
     ctx.stroke()
     ctx.closePath()
 
-    if (this.isPlaying) this.currentPosition += .005
-    if (this.currentPosition >= 1) this.currentPosition = 0
+    if (this.isPlaying) this.currentPosition += .01
+    if (this.currentPosition >= 1) {
+      this.currentPosition = 0
+      for (const sound of this.sounds) {
+        sound.isPlayed = false
+      }
+    }
 
     for (const sound of this.sounds) {
       if (Math.round(sound.x * 100) == Math.round(this.currentPosition * 100)) {
-        console.log(sound.name)
+        if (!sound.isPlayed) {
+          const audio = new Audio()
+          switch (sound.name) {
+            case 'kick':
+            audio.src = this.medias.kick
+            break
+            case 'snare':
+            audio.src = this.medias.snare
+            break
+            case 'hihat':
+            audio.src = this.medias.hihat
+            break
+          }
+          audio.play()
+          sound.isPlayed = true
+        }
       }
     }
   }
 
   inst(ctx) {
     for (const sound of this.sounds) {
-      ctx.fillStyle = this.colors.kick
+      switch (sound.name) {
+        case 'kick':
+        ctx.fillStyle = this.colors.kick
+        break
+        case 'snare':
+        ctx.fillStyle = this.colors.snare
+        break
+        case 'hihat':
+        ctx.fillStyle = this.colors.hihat
+        break
+      }
       ctx.fillRect(sound.x * this.width, sound.y * this.height - 25, sound.length * 100, 50)
     }
+  }
+
+  export() {
+    const content = JSON.stringify(this.sounds)
+    console.log(content)
   }
 }
