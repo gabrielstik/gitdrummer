@@ -11,9 +11,11 @@ export default class Drummer {
     this.colors = {
       background: '#fffdf3',
       bars: 'grey',
+      current: 'red',
       kick: 'blue',
     }
     this.sounds = []
+    this.currentPosition = 0
     
     this.events($drummer)
     this.render(ctx)
@@ -58,6 +60,12 @@ export default class Drummer {
         this.selectedSound = $soundLabel.dataset.sound
       })
     }
+
+    this.isPlaying = false
+    const $playPause = document.querySelector('.inventory--play-pause')
+    $playPause.addEventListener('mousedown', () => {
+      this.isPlaying == false ? this.isPlaying = true : this.isPlaying = false
+    })
   }
 
   render(ctx) {
@@ -67,6 +75,7 @@ export default class Drummer {
       this.clear(ctx)
       this.bars(ctx)
       this.inst(ctx)
+      this.current(ctx)
     }
     loop()
   }
@@ -96,6 +105,19 @@ export default class Drummer {
     ctx.lineTo(this.width / 4 * 3, this.height)
     ctx.stroke()
     ctx.closePath()
+  }
+  
+  current(ctx) {
+    ctx.strokeStyle = this.colors.current
+
+    ctx.beginPath()
+    ctx.moveTo(this.currentPosition * this.width, 0)
+    ctx.lineTo(this.currentPosition * this.width, this.height)
+    ctx.stroke()
+    ctx.closePath()
+
+    if (this.isPlaying) this.currentPosition += .005
+    if (this.currentPosition >= 1) this.currentPosition = 0
   }
 
   inst(ctx) {
