@@ -1,4 +1,6 @@
 import './vendor/modernizr'
-import Drummer from './modules/drummer.js'
+import Navigation from './modules/Navigation'
+import Drummer from './modules/Drummer'
 
-const drummer = new Drummer()
+const navigation = new Navigation()
+const drummer = new Drummer(navigation)

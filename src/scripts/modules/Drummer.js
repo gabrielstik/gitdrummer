@@ -1,8 +1,6 @@
-import { request } from "http";
-
 export default class Drummer {
 
-  constructor() {
+  constructor(navigation) {
     const $drummer = document.querySelector('.drummer')
     const ctx = $drummer.getContext('2d')
 
@@ -26,7 +24,7 @@ export default class Drummer {
     }
     
     this.mediaPreload()
-    this.events($drummer)
+    this.events($drummer, navigation)
     this.render(ctx)
   }
 
@@ -50,42 +48,44 @@ export default class Drummer {
 
   }
 
-  events($drummer) {
-    $drummer.addEventListener('mousedown', (e) => {
-      if (this.selectedSound) {
-        const sound = {
-          name: this.selectedSound,
-          x: event.clientX / this.width,
-          y: event.clientY / this.height,
-          length: 1,
-          isPlayed: false
-        }
-        this.sounds.push(sound)
-      }
+  events($drummer, navigation) {
+    let isGrabbing = false
+
+    window.addEventListener('mouseup', (e) => {
+      isGrabbing = false
     })
 
-    $drummer.addEventListener('mousemove', (e) => {
-      
-    })
-
-    const $soundLabels = document.querySelectorAll('.inventory--sound-label')
+    const $soundLabels = document.querySelectorAll('.inventory--sound')
     for (const $soundLabel of $soundLabels) {
-      $soundLabel.addEventListener('mousedown', () => {
+      $soundLabel.addEventListener('mousedown', (e) => {
         for (const $label of $soundLabels) {
           $label.classList.remove('selected')
         }
+
         $soundLabel.classList.add('selected')
         this.selectedSound = $soundLabel.dataset.sound
+
+        isGrabbing = true
+        navigation.hideInventory()
+        this.dropSound(e)
+      })
+
+      // C'EST PAS DU TOUT ÇA QU'IL FAUT FAIRE, IL FAUT CHOPPER LES COORDONNÉES DANS LE CANVAS 😅
+      $soundLabel.addEventListener('mousemove', (e) => {
+        if (isGrabbing) {
+          this.sounds[this.sounds.length-1].x = e.clientX / this.width
+          this.sounds[this.sounds.length-1].y = e.clientY / this.height
+        }
       })
     }
 
     this.isPlaying = false
-    const $playPause = document.querySelector('.inventory--play-pause')
+    const $playPause = document.querySelector('.settings--play-pause')
     $playPause.addEventListener('mousedown', () => {
       this.isPlaying == false ? this.isPlaying = true : this.isPlaying = false
     })
 
-    const $export = document.querySelector('.inventory--export')
+    const $export = document.querySelector('.settings--export')
     $export.addEventListener('mousedown', () => (
       this.export()
     ))
@@ -169,7 +169,21 @@ export default class Drummer {
     }
   }
 
+  dropSound(e) {
+    if (this.selectedSound) {
+      const sound = {
+        name: this.selectedSound,
+        x: e.clientX / this.width,
+        y: e.clientY / this.height,
+        length: 1,
+        isPlayed: false
+      }
+      this.sounds.push(sound)
+    }
+  }
+
   inst(ctx) {
+    console.log(this.sounds)
     for (const sound of this.sounds) {
       switch (sound.name) {
         case 'kick':
