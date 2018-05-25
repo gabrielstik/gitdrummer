@@ -13,6 +13,11 @@ export default class Drummer {
       kick: 'blue',
       snare: 'green',
       hihat: 'yellow',
+      clave: 'violet',
+      conga: 'pink',
+      cowbell: 'magenta',
+      maracas: 'cyan',
+      stick: 'brown',
     }
     this.sounds = []
     this.currentPosition = 0
@@ -20,7 +25,12 @@ export default class Drummer {
     this.medias = {
       kick: 'assets/lib/808/kicks/808-Kicks03.wav',
       snare: 'assets/lib/808/snares/808-Clap03.wav',
-      hihat: 'assets/lib/808/hihats/808-HiHats03.wav'
+      hihat: 'assets/lib/808/hihats/808-HiHats03.wav',
+      clave: 'assets/lib/808/percussion/808-Clave3.wav',
+      conga: 'assets/lib/808/percussion/808-Conga3.wav',
+      cowbell: 'assets/lib/808/percussion/808-Cowbell3.wav',
+      maracas: 'assets/lib/808/percussion/808-Maracas3.wav',
+      stick: 'assets/lib/808/percussion/808-Stick3.wav',
     }
     
     this.mediaPreload()
@@ -179,6 +189,21 @@ export default class Drummer {
             case 'hihat':
             audio.src = this.medias.hihat
             break
+            case 'clave':
+            audio.src = this.medias.clave
+            break
+            case 'conga':
+            audio.src = this.medias.conga
+            break
+            case 'cowbell':
+            audio.src = this.medias.cowbell
+            break
+            case 'maracas':
+            audio.src = this.medias.maracas
+            break
+            case 'stick':
+            audio.src = this.medias.stick
+            break
           }
           audio.play()
           sound.isPlayed = true
@@ -211,6 +236,21 @@ export default class Drummer {
         break
         case 'hihat':
         ctx.fillStyle = this.colors.hihat
+        break
+        case 'clave':
+        ctx.fillStyle = this.colors.clave
+        break
+        case 'conga':
+        ctx.fillStyle = this.colors.conga
+        break
+        case 'cowbell':
+        ctx.fillStyle = this.colors.cowbell
+        break
+        case 'maracas':
+        ctx.fillStyle = this.colors.maracas
+        break
+        case 'stick':
+        ctx.fillStyle = this.colors.stick
         break
       }
       ctx.fillRect(sound.x * this.width, sound.y * this.height - 25, sound.length * 100, 50)
