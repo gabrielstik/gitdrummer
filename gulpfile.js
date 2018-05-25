@@ -16,6 +16,7 @@ const gulp = require('gulp'),
   // Images
   gulp_imagemin = require('gulp-imagemin'),
   // Browserify
+  gulp_file_include = require('gulp-file-include'),
   gutil = require('gulp-util'),
   browserify = require('browserify'),
   babelify = require('babelify'),

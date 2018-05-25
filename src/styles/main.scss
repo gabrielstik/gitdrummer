@@ -66,6 +66,10 @@ html, body {
       }
     }
 
+    &.selected {
+      box-shadow: inset 0px 0px 40px 0px rgba(0,255,0,.5);
+    }
+
     &-label {
       margin-top: 5px;
       font-family: 'Avenir Next', sans-serif;

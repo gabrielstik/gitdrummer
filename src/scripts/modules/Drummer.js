@@ -45,14 +45,33 @@ export default class Drummer {
       const audio = new Audio()
       audio.src = media
     }
-
   }
 
   events($drummer, navigation) {
-    let isGrabbing = false
+    let grabbed = null
 
-    window.addEventListener('mouseup', (e) => {
-      isGrabbing = false
+    $drummer.addEventListener('mousedown', (e) => {
+      for (const sound of this.sounds) {
+        if (
+          e.clientX >= sound.x * this.width &&
+          e.clientX <= sound.x * this.width + sound.length * 100 &&
+          e.clientY >= sound.y * this.height - 25 &&
+          e.clientY <= sound.y * this.height + 25) {
+            grabbed = sound
+        }
+      }
+      if (!grabbed) this.dropSound(e)
+    })
+
+    window.addEventListener('mousemove', (e) => {
+      if (grabbed != null) {
+        grabbed.x = e.clientX / this.width
+        grabbed.y = e.clientY / this.height
+      }
+    })
+
+    window.addEventListener('mouseup', () => {
+      grabbed = null
     })
 
     const $soundLabels = document.querySelectorAll('.inventory--sound')
@@ -64,18 +83,6 @@ export default class Drummer {
 
         $soundLabel.classList.add('selected')
         this.selectedSound = $soundLabel.dataset.sound
-
-        isGrabbing = true
-        navigation.hideInventory()
-        this.dropSound(e)
-      })
-
-      // C'EST PAS DU TOUT ÇA QU'IL FAUT FAIRE, IL FAUT CHOPPER LES COORDONNÉES DANS LE CANVAS 😅
-      $soundLabel.addEventListener('mousemove', (e) => {
-        if (isGrabbing) {
-          this.sounds[this.sounds.length-1].x = e.clientX / this.width
-          this.sounds[this.sounds.length-1].y = e.clientY / this.height
-        }
       })
     }
 
@@ -183,7 +190,6 @@ export default class Drummer {
   }
 
   inst(ctx) {
-    console.log(this.sounds)
     for (const sound of this.sounds) {
       switch (sound.name) {
         case 'kick':
