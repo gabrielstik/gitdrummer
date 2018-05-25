@@ -48,9 +48,12 @@ export default class Drummer {
   }
 
   events($drummer, navigation) {
+    const $inventory = document.querySelector('.inventory')
     let grabbed = null
+    let index = 0
 
     $drummer.addEventListener('mousedown', (e) => {
+      let i = 0
       for (const sound of this.sounds) {
         if (
           e.clientX >= sound.x * this.width &&
@@ -58,7 +61,9 @@ export default class Drummer {
           e.clientY >= sound.y * this.height - 25 &&
           e.clientY <= sound.y * this.height + 25) {
             grabbed = sound
+            index = i
         }
+        i++
       }
       if (!grabbed) this.dropSound(e)
     })
@@ -72,6 +77,12 @@ export default class Drummer {
 
     window.addEventListener('mouseup', () => {
       grabbed = null
+    })
+    
+    $inventory.addEventListener('mouseup', () => {
+      if (grabbed != null) {
+        this.sounds.splice(index, 1)
+      }
     })
 
     const $soundLabels = document.querySelectorAll('.inventory--sound')
