@@ -18,6 +18,12 @@ class Db {
     return !empty($user->password) ? $user->password : false;
   }
 
+  function check_account($user) {
+    $query = $this->pdo->query("SELECT * FROM users WHERE username = '$user'");
+    $user = $query->fetch();
+    return empty($user) ? true : false;
+  }
+
   public function create_account($user, $password) {
     $password = password_hash($password, PASSWORD_DEFAULT);
     $exec = $this->pdo->prepare("INSERT INTO users (username, password) VALUES ('$user', '$password')");

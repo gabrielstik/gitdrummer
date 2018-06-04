@@ -9,6 +9,7 @@ if ($page != 'sign-out') include './components/controllers/'.$page.'_controller.
 
 switch($page) {
   case 'home':
+    $drummer = new HomeController();
     break;
   case 'drummer':
     $drummer = new DrummerController();
