@@ -41,7 +41,7 @@ gulp.task('clean', () => {
 
 gulp.task('default', ['dev'])
 gulp.task('dev', ['watch'])
-gulp.task('prod', ['app', 'apps', 'styles', 'vendor-styles', 'scripts', 'fonts', 'lib', 'json', 'images', 'apache'])
+gulp.task('prod', ['app', 'apps', 'styles', 'vendor-styles', 'scripts', 'fonts', 'lib', 'json', 'images', 'apache', 'actions'])
 
 // SASS to SCSS, compress & prefix styles
 gulp.task('styles', () => {
@@ -81,7 +81,13 @@ gulp.task('scripts', () => {
 })
 
 gulp.task('app', () => {
-  return gulp.src(`${config.src}*.html`)
+  return gulp.src(`${config.src}*.php`)
+    .pipe(gulp_plumber({errorHandler: gulp_notify.onError('App error:  <%= error.message %>')}))
+    .pipe(gulp.dest(`${config.dist}`))  
+})
+
+gulp.task('components', () => {
+  return gulp.src(`${config.src}**/*.php`)
     .pipe(gulp_plumber({errorHandler: gulp_notify.onError('App error:  <%= error.message %>')}))
     .pipe(gulp.dest(`${config.dist}`))  
 })
@@ -124,18 +130,17 @@ gulp.task('apache', () => {
 
 gulp.task('browsersync', () => {
   browserSync.init({
-    server: {
-      baseDir: "./dist",
-      middleware: [ historyApiFallback() ]
-    },
+    proxy: 'http://localhost:8888/',
+    port: 8888,
     notify: false
   })
 })
 
 // Watch tasks
-gulp.task('watch', ['app', 'apps', 'styles', 'vendor-styles', 'scripts', 'fonts', 'lib', 'json', 'images', 'apache', 'browsersync'], () => {
+gulp.task('watch', ['app', 'apps', 'styles', 'vendor-styles', 'scripts', 'fonts', 'lib', 'json', 'images', 'apache', 'browsersync', 'components'], () => {
   gulp.watch(`${config.src}*.html`, ['app']).on('change', browserSync.reload)
-  gulp.watch(`${config.src}app/**/*.html`, ['apps']).on('change', browserSync.reload)
+  gulp.watch(`${config.src}**/*.php`, ['components']).on('change', browserSync.reload)
+  gulp.watch(`${config.src}**/*.php`, ['app']).on('change', browserSync.reload)
   gulp.watch(`${config.src}views/**/*.html`, ['views']).on('change', browserSync.reload)
   gulp.watch(`${config.src}actions/**/*.html`, ['actions']).on('change', browserSync.reload)
   gulp.watch([`${config.src}styles/**/*.scss`, `!${config.src}styles/vendor`], ['styles']).on('change', browserSync.reload)
