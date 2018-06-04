@@ -3,6 +3,10 @@
 session_start();
 require './config.php';
 
+echo '<pre style="font-size:12px">';
+print_r($_SESSION);
+echo '</pre>';
+
 $page = isset($_GET['q']) ? $_GET['q'] : 'home';
 
 if ($page != 'sign-out') include './components/controllers/'.$page.'_controller.php';
