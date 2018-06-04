@@ -3,9 +3,30 @@
   margin: 100px auto;
   padding: 40px;
   border-radius: 5px;
+  background: var(--white);
   box-shadow: 0 0 10px rgba(0,0,0,.1);
 
   &--title {
     margin-bottom: 30px;
+  }
+}
+
+.background {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  background: var(--background);
+
+  &--circle {
+    width: 30vw;
+    height: 30vw;
+    position: absolute;
+    bottom: -100px;
+    left: calc(35vw);
+    background: var(--main);
+    border-radius: 50%;
   }
 }

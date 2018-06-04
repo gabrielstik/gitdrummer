@@ -5,13 +5,15 @@ class HomeController {
   function __construct() {
     include './components/models/Db.php';
     $db = new Db();
-
-    include './components/views/partials/head.php';
-
+    
     $errors_sign_in = $this->sign_in_listener($db);
     $errors_sign_up = $this->sign_up_listener($db);
     
+    $this->disp($errors_sign_in, $errors_sign_up);
+  }
 
+  private function disp($errors_sign_in, $errors_sign_up) {
+    include './components/views/partials/head.php';
     include './components/views/home.php';
     include './components/views/partials/foot.php';
   }
@@ -89,6 +91,7 @@ class HomeController {
       
       if (sizeof($errors_mail) == 0 && sizeof($errors_pass) == 0){
         $db->create_account($_POST['sign-up--mail'], $_POST['sign-up--password']);
+        $_SESSION['current_user']['username'] = $_POST['sign-up--mail'];
       }
     }
 

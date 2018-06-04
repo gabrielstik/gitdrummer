@@ -55,3 +55,13 @@
     <button class="btn btn-primary" type="submit" name="sign-up--submit">Créer le compte</button>
   </form>
 </div>
+
+<div class="sign-out">
+  <a href="/sign-out" title="Se déconnecter">
+    <button class="btn btn-primary">Se déconnecter</button>
+  </a>
+</div>
+
+<div class="background">
+  <div class="background--circle"></div>
+</div>
