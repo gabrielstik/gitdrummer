@@ -29,4 +29,10 @@ class Db {
     $exec = $this->pdo->prepare("INSERT INTO users (username, password) VALUES ('$user', '$password')");
     $exec->execute();
   }
+
+
+  public function add_drum($user, $name) {
+    $exec = $this->pdo->prepare("INSERT INTO drums (parent, name, date) VALUES ('$user', '$name', NOW())");
+    $exec->execute();
+  }
 }
