@@ -6,9 +6,6 @@
     <li class="nav-item">
       <a class="nav-link" href="#">Récents</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Amis</a>
-    </li>
   </ul>
   <table class="menu--list table">
   <thead>

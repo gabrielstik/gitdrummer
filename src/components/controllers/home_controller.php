@@ -41,6 +41,7 @@ class HomeController {
           }
           else {
             $_SESSION['current_user']['username'] = $_POST['sign-in--mail'];
+            header('Location: /library');
           }
         }
       }
@@ -92,6 +93,7 @@ class HomeController {
       if (sizeof($errors_mail) == 0 && sizeof($errors_pass) == 0){
         $db->create_account($_POST['sign-up--mail'], $_POST['sign-up--password']);
         $_SESSION['current_user']['username'] = $_POST['sign-up--mail'];
+        header('Location: /library');
       }
     }
 

@@ -52,7 +52,7 @@
   </ul>
 </div>
 <div class="settings">
-  <div class="settings--play-pause">play</div>
-  <div class="settings--export">export</div>
+  <button type="button" class="settings--play-pause btn btn-primary">Play</button>
+  <button type="button" class="settings--export btn btn-primary">Sauvegarder</button>
 </div>
 <canvas class="drummer"></canvas>
