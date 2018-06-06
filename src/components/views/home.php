@@ -27,12 +27,22 @@
     <h2 class="sign-up--title">Créer un compte</h2>
     <div class="form-group">
       <label for="mail">Adresse email</label>
-      <input class="form-control <? if (sizeof($errors_sign_up['mail']) > 0) { ?>is-invalid <? } ?>" type="text" name="sign-up--mail" id="sign-up--mail" placeholder="gabriel.stik@gmail.com" value="<? if (isset($_POST['sign-up--mail'])) echo $_POST['sign-up--mail'] ?>">
+      <input class="form-control <? if (sizeof($errors_sign_up['mail']) > 0) { ?>is-invalid <? } ?>" type="text" name="sign-up--mail" id="sign-up--mail" placeholder="victoc.timsoc@mail.toc" value="<? if (isset($_POST['sign-up--mail'])) echo $_POST['sign-up--mail'] ?>">
       <? foreach ($errors_sign_up['mail'] as $error) { ?>
         <div class="invalid-feedback">
           <?= $error ?>
         </div>
       <? } ?>
+    </div>
+    <div class="form-group">
+      <label for="mail">Pseudo</label>
+      <input class="form-control <? if (sizeof($errors_sign_up['pseudo']) > 0) { ?>is-invalid <? } ?>" type="text" name="sign-up--pseudo" id="sign-up--pseudo" placeholder="TheVictoc" value="<? if (isset($_POST['sign-up--pseudo'])) echo $_POST['sign-up--pseudo'] ?>">
+      <? foreach ($errors_sign_up['pseudo'] as $error) { ?>
+        <div class="invalid-feedback">
+          <?= $error ?>
+        </div>
+      <? } ?>
+      <small class="form-text text-muted">Vous pourrez le modifier ultérieurement.</small>
     </div>
     <div class="form-group">
       <label for="password">Mot de passe</label>
@@ -54,12 +64,6 @@
     </div>
     <button class="btn btn-primary" type="submit" name="sign-up--submit">Créer le compte</button>
   </form>
-</div>
-
-<div class="sign-out">
-  <a href="/sign-out" title="Se déconnecter">
-    <button class="btn btn-primary">Se déconnecter</button>
-  </a>
 </div>
 
 <div class="background">

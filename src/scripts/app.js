@@ -1,4 +1,4 @@
-import './vendor/modernizr'
+// import './vendor/modernizr'
 import Navigation from './modules/Navigation'
 import Drummer from './modules/Drummer'
 

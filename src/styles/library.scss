@@ -20,4 +20,12 @@
     bottom: 0;
     border-top: solid 1px var(--grey);
   }
+
+  &--drum {
+    
+    &:hover {
+      background: hsla(211, 100%, 50%, .1);
+      cursor: pointer;
+    }
+  }
 }
