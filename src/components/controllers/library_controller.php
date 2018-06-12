@@ -12,7 +12,7 @@ class LibraryController {
     ];
     
     if (!empty($_SESSION['current_user'])) $this->disp($props);
-    else header('Location: /404');
+    else { header('Location: /404'); exit(); }
   }
 
   private function disp($props) {
@@ -27,11 +27,7 @@ class LibraryController {
   private function create_listener($db) {
     $errors = [];
     if (isset($_POST['create--submit'])) {
-      if (isset($_POST['create--name']) && strlen($_POST['create--name']) == 0) {
-        array_push($errors, 'Vous devez donner un nom à votre gitdrum.');
-      }
-
-      if (sizeof($errors) == 0) $db->add_drum($_SESSION['current_user']['username'], $_POST['create--name']);
+      header('Location: /drummer');
     }
 
     return $errors;

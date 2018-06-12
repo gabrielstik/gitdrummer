@@ -33,25 +33,16 @@
       </tbody>
     </table>
     <div class="menu--new">
-      <h4 class="mb-3">Créer un Gitdrum</h4>
       <form method="post" action="/library">
-        <div class="form-group mr-2">
-          <input class="form-control <? if (sizeof($errors) > 0) { ?>is-invalid <? } ?>" type="text" name="create--name" id="create--name" placeholder="Nom du gitdrum">
-          <? foreach ($errors as $error) { ?>
-          <div class="invalid-feedback">
-            <?= $error ?>
-          </div>
-        <? } ?>
-        </div>
         <div class="form-group">
-          <button class="btn btn-primary" type="submit" name="create--submit">Créer</button>
+          <button class="btn btn-primary" type="submit" name="create--submit">Créer un gitdrum</button>
         </div>
       </form>
     </div>
   </aside>
   <div class="sign-out">
-    <a href="/sign-out" title="Se déconnecter">
-      <button class="btn btn-primary">Se déconnecter</button>
+    <a href="/sign-out" title="Modifier">
+      <button class="btn btn-primary">Modifier</button>
     </a>
   </div>
 </div>
