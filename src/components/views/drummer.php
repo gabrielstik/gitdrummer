@@ -53,6 +53,18 @@
 </div>
 <div class="settings">
   <button type="button" class="settings--play-pause btn btn-primary">Play</button>
-  <button type="button" class="settings--export btn btn-primary">Sauvegarder</button>
+  <form method="post" action="/library">
+    <div class="form-group">
+      <label for="commit--name">Nom du commit</label>
+      <input class="form-control <? if (sizeof($errors) > 0) { ?>is-invalid <? } ?>" type="text" name="commit--name" id="commit--name" placeholder="Funny drum" value="<? if (isset($_POST['commit--name'])) echo $_POST['commit--name'] ?>">
+      <? foreach ($errors as $error) { ?>
+        <div class="invalid-feedback">
+          <?= $error ?>
+        </div>
+      <? } ?>
+      <button class="btn btn-primary" type="submit" name="commit--submit">Sauvegarder la version</button>
+    </div>
+  </form>
+  <button type="button" class="settings--export btn btn-primary">Export</button>
 </div>
 <canvas class="drummer"></canvas>
