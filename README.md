@@ -39,6 +39,7 @@ Now you can run the app.
 Create an account, create a new drum or edit one.
 
 To add a song, go to right to open the inventory. Select a drum & place it on the grid by clicking, you can drag & drop to move it.
+
 To delete it, just drop it back in the inventory.
 
 
@@ -46,7 +47,9 @@ To delete it, just drop it back in the inventory.
 ## Team
 
 UX Designer: Nicolas Delattre
+
 UI Designer: Paul Goutry
+
 Frontend & backend developer: Gabriel Stik
 
 
