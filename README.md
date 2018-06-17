@@ -1,4 +1,4 @@
-# Gitd
+# Gitdrummer
 
 Gitdrummer is a school project. It is a drummer where people can update and share drums, working on the same timelines.
 
