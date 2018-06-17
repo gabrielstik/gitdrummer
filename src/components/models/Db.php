@@ -45,10 +45,12 @@ class Db {
 
 
   public function add_drum($user, $name, $json) {
-    echo '<pre style="font-size:12px">';
-    print_r($json);
-    echo '</pre>';
     $exec = $this->pdo->prepare("INSERT INTO drums (author, name, date, json) VALUES ('$user', '$name', NOW(), '$json')");
+    $exec->execute();
+  }
+
+  public function commit($master, $name, $json) {
+    $exec = $this->pdo->prepare("INSERT INTO commits (master, name, date, json) VALUES ('$master', '$name', NOW(), '$json')");
     $exec->execute();
   }
 
@@ -57,5 +59,11 @@ class Db {
     $query = $this->pdo->query("SELECT * FROM drums");
     $drums = $query->fetchAll();
     return !empty($drums) ? $drums : false;
+  }
+
+  public function get_drum($id) {
+    $query = $this->pdo->query("SELECT * FROM drums WHERE id = '$id'");
+    $drum = $query->fetch();
+    return $drum;
   }
 }

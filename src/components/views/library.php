@@ -24,10 +24,10 @@
       <tbody>
         <? foreach ($drums as $drum) { ?>
           <tr class="menu--drum">
-            <td><?= $drum->name ?></td>
-            <td><?= $drum->author ?></td>
-            <td><?= $drum->forks ?></td>
-            <td><?= $drum->stars ?></td>
+            <td><a href="/drummer?id=<?= $drum->id ?>"><?= $drum->name ?></a></td>
+            <td><a href="/drummer?id=<?= $drum->id ?>"><?= $drum->author ?></a></td>
+            <td><a href="/drummer?id=<?= $drum->id ?>"><?= $drum->forks ?></a></td>
+            <td><a href="/drummer?id=<?= $drum->id ?>"><?= $drum->stars ?></a></td>
           </tr>
         <? } ?>
       </tbody>

@@ -3,6 +3,7 @@ export default class Drummer {
   constructor(navigation) {
     const $drummer = document.querySelector('.drummer')
     const ctx = $drummer.getContext('2d')
+    const json = document.querySelector('.drum_json').value
 
     this.resize($drummer)
 
@@ -19,8 +20,9 @@ export default class Drummer {
       maracas: 'cyan',
       stick: 'brown',
     }
-    this.sounds = []
     this.currentPosition = 0
+
+    this.sounds = json !== '' ? JSON.parse(json.replace(/%quote%/g, '"')) : [];
 
     this.medias = {
       kick: 'assets/lib/808/kicks/808-Kicks03.wav',

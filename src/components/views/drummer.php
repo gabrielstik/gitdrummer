@@ -1,3 +1,4 @@
+<input class="drum_json" type="hidden" value="<?= str_replace('"', '%quote%', $json) ?>">
 <div class="inventory">
   <h2 class="inventory--title">Inventory</h2>
   <ul class="inventory--list">
