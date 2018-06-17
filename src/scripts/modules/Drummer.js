@@ -7,7 +7,7 @@ export default class Drummer {
     this.resize($drummer)
 
     this.colors = {
-      background: '#fffdf3',
+      background: '#202020',
       bars: 'grey',
       current: 'red',
       kick: 'blue',
@@ -258,7 +258,8 @@ export default class Drummer {
   }
 
   export() {
+    const field = document.querySelector('.commit--json')
     const content = JSON.stringify(this.sounds)
-    console.log(content)
+    field.value = content
   }
 }

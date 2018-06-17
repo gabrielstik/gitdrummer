@@ -9,3 +9,42 @@
     justify-content: space-between;
   }
 }
+
+h2 {
+  margin-bottom: 30px;
+  font-size: 36px;
+  color: var(--orange);
+}
+
+label {
+  color: var(--white);
+}
+
+input[type=text],
+input[type=mail],
+input[type=password] {
+  background: var(--background);
+  border-color: var(--orange);
+}
+
+button[type=submit], .btn {
+  margin-top: 20px;
+  background: var(--orange);
+  border: none;
+
+  &:hover {
+    background: var(--orangeLight);
+  }
+}
+
+.nav-link {
+  color: var(--white);
+
+  &.active {
+    background: var(--orange) !important;
+  }
+}
+
+li {
+  list-style: none;
+}

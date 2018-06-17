@@ -18,6 +18,12 @@ class Db {
     return !empty($user->pseudo) ? $user->pseudo : false;
   }
 
+  public function get_id($mail) {
+    $query = $this->pdo->query("SELECT * FROM users WHERE username = '$mail'");
+    $user = $query->fetch();
+    return !empty($user->id) ? $user->id : false;
+  }
+
 
   public function get_hashed_password($user) {
     $query = $this->pdo->query("SELECT * FROM users WHERE username = '$user'");
@@ -38,8 +44,11 @@ class Db {
   }
 
 
-  public function add_drum($user, $name) {
-    $exec = $this->pdo->prepare("INSERT INTO drums (parent, name, date) VALUES ('$user', '$name', NOW())");
+  public function add_drum($user, $name, $json) {
+    echo '<pre style="font-size:12px">';
+    print_r($json);
+    echo '</pre>';
+    $exec = $this->pdo->prepare("INSERT INTO drums (author, name, date, json) VALUES ('$user', '$name', NOW(), '$json')");
     $exec->execute();
   }
 

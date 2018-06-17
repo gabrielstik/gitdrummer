@@ -53,7 +53,7 @@
 </div>
 <div class="settings">
   <button type="button" class="settings--play-pause btn btn-primary">Play</button>
-  <form method="post" action="/library">
+  <form method="post" action="/drummer">
     <div class="form-group">
       <label for="commit--name">Nom du commit</label>
       <input class="form-control <? if (sizeof($errors) > 0) { ?>is-invalid <? } ?>" type="text" name="commit--name" id="commit--name" placeholder="Funny drum" value="<? if (isset($_POST['commit--name'])) echo $_POST['commit--name'] ?>">
@@ -62,6 +62,7 @@
           <?= $error ?>
         </div>
       <? } ?>
+      <input type="hidden" name="commit--json" class="commit--json" id="commit--json" value="">
       <button class="btn btn-primary" type="submit" name="commit--submit">Sauvegarder la version</button>
     </div>
   </form>

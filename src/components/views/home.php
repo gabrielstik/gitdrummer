@@ -1,4 +1,5 @@
 <div class="flex evenly">
+
   <form class="sign-in" action="/" method="post">
     <h2 class="sign-in--title">Se connecter</h2>
     <div class="form-group">
@@ -24,7 +25,8 @@
   </form>
 
   <form class="sign-up" action="/" method="post">
-    <h2 class="sign-up--title">Créer un compte</h2>
+    <h2 class="sign-up--title">Rejoignez la communauté</h2>
+    <p class="sign-up--text">Gitdrummer est le meilleur beat manager amateur du web. En ligne, simple, efficace, il est pratique d'utilisation et tout est centralisé sur le web.</p>
     <div class="form-group">
       <label for="mail">Adresse email</label>
       <input class="form-control <? if (sizeof($errors_sign_up['mail']) > 0) { ?>is-invalid <? } ?>" type="text" name="sign-up--mail" id="sign-up--mail" placeholder="victoc.timsoc@mail.toc" value="<? if (isset($_POST['sign-up--mail'])) echo $_POST['sign-up--mail'] ?>">
@@ -64,8 +66,4 @@
     </div>
     <button class="btn btn-primary" type="submit" name="sign-up--submit">Créer le compte</button>
   </form>
-</div>
-
-<div class="background">
-  <div class="background--circle"></div>
 </div>

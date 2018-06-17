@@ -4,6 +4,7 @@
   padding: 10px;
   position: relative;
   box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  border-right: solid 5px var(--orange);
 
   &--list {
     max-height: calc(100vh - 200px);
