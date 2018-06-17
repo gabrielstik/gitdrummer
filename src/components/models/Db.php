@@ -49,8 +49,8 @@ class Db {
     $exec->execute();
   }
 
-  public function commit($master, $name, $json) {
-    $exec = $this->pdo->prepare("INSERT INTO commits (master, name, date, json) VALUES ('$master', '$name', NOW(), '$json')");
+  public function commit($id, $master, $name, $json) {
+    $exec = $this->pdo->prepare("UPDATE drums SET name = '$name', date = NOW(), json = '$json' WHERE id = '$id'");
     $exec->execute();
   }
 
@@ -65,5 +65,11 @@ class Db {
     $query = $this->pdo->query("SELECT * FROM drums WHERE id = '$id'");
     $drum = $query->fetch();
     return $drum;
+  }
+
+  public function get_commits($id) {
+    $query = $this->pdo->query("SELECT * FROM commits WHERE master = '$id'");
+    $commits = $query->fetchAll();
+    return $commits;
   }
 }

@@ -29,7 +29,7 @@ class DrummerController {
     $errors = [];
     if (isset($_POST['commit--submit'])) {
       if (isset($_POST['commit--name'])) {
-        if (isset($_GET['id'])) {
+        if (!isset($_GET['id'])) {
           $db->add_drum(
             $db->get_id($_SESSION['current_user']['username']),
             $_POST['commit--name'],
@@ -38,6 +38,7 @@ class DrummerController {
         }
         else {
           $db->commit(
+            $_GET['id'],
             $_GET['id'],
             $_POST['commit--name'],
             $_POST['commit--json']

@@ -45,6 +45,15 @@ button[type=submit], .btn {
   }
 }
 
+a {
+  color: var(--white);
+
+  &:hover {
+    color: var(--orange);
+    text-decoration: underline;
+  }
+}
+
 li {
   list-style: none;
 }

@@ -4,30 +4,22 @@
       <li class="nav-item">
         <a class="nav-link active" href="#">Populaires</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="#">Récents</a>
-      </li>
+      </li> -->
     </ul>
     <table class="menu--list table">
       <thead>
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Author</th>
-          <th scope="col">
-            <i class="fa fa-code-fork" aria-hidden="true"></i>
-          </th>
-          <th scope="col">
-            <i class="fa fa-star" aria-hidden="true"></i>
-          </th>
         </tr>
       </thead>
       <tbody>
-        <? foreach ($drums as $drum) { ?>
-          <tr class="menu--drum">
-            <td><a href="/drummer?id=<?= $drum->id ?>"><?= $drum->name ?></a></td>
-            <td><a href="/drummer?id=<?= $drum->id ?>"><?= $drum->author ?></a></td>
-            <td><a href="/drummer?id=<?= $drum->id ?>"><?= $drum->forks ?></a></td>
-            <td><a href="/drummer?id=<?= $drum->id ?>"><?= $drum->stars ?></a></td>
+        <? if ($drums) foreach ($drums as $drum) { ?>
+          <tr class="menu--drum" onclick="document.location = '/drummer?id=<?= $drum->id ?>'">
+            <td><?= $drum->name ?></td>
+            <td><?= $drum->author ?></td>
           </tr>
         <? } ?>
       </tbody>
@@ -42,7 +34,10 @@
   </aside>
   <div class="sign-out">
     <a href="/sign-out" title="Modifier">
-      <button class="btn btn-primary">Modifier</button>
+      <button class="btn btn-primary">Se deconnecter</button>
     </a>
   </div>
+</div>
+<div class="flex between">
+  <input type="hidden" name="drum_id" class="drum_id" id="drum_id" value="<?= isset($_GET['id']) ? $_GET['id'] : '' ?>">
 </div>

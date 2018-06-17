@@ -112,13 +112,15 @@ export default class Drummer {
     this.isPlaying = false
     const $playPause = document.querySelector('.settings--play-pause')
     $playPause.addEventListener('mousedown', () => {
-      this.isPlaying == false ? this.isPlaying = true : this.isPlaying = false
+      if (this.isPlaying == false) {
+        this.isPlaying = true
+        $playPause.innerHTML = 'Pause'
+      }
+      else {
+        this.isPlaying = false
+        $playPause.innerHTML = 'Play'
+      }
     })
-
-    const $export = document.querySelector('.settings--export')
-    $export.addEventListener('mousedown', () => (
-      this.export()
-    ))
   }
 
   render(ctx) {
@@ -129,6 +131,7 @@ export default class Drummer {
       this.bars(ctx)
       this.inst(ctx)
       this.current(ctx)
+      this.export()
     }
     loop()
   }

@@ -6,6 +6,8 @@ class LibraryController {
     include './components/models/Db.php';
     $db = new Db();
 
+    if (isset($_GET['id'])) $commits = $db->get_commits($_GET['id']);
+
     $props = [
       'errors' => $this->create_listener($db),
       'drums' => $this->get_drums($db)
@@ -27,7 +29,7 @@ class LibraryController {
   private function create_listener($db) {
     $errors = [];
     if (isset($_POST['create--submit'])) {
-      header('Location: /drummer');
+      header('Location: /drummer'); exit();
     }
 
     return $errors;
@@ -35,9 +37,12 @@ class LibraryController {
 
   private function get_drums($db) {
     $drums = $db->get_drums();
-    foreach ($drums as $drum) {
-      $drum->author = $db->get_pseudo($drum->author);
+    if ($drums) {
+      foreach ($drums as $drum) {
+        $drum->author = $db->get_pseudo($drum->author);
+      }
+      return $drums;
     }
-    return $drums;
+    else return false;
   }
 }
